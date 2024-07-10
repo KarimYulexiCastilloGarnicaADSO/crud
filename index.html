@@ -10,7 +10,7 @@
     
     <h1>Formulario</h1>
     <form action="" class="formulario">
-        <input type="number" id="id" placeholder="Ingresa el ID">
+        <input type="text" id="id" placeholder="Ingresa el ID">
         <label for=""></label>
         <input type="text" id="nombre" placeholder="Ingrese su nombre">
         <label for=""></label>
@@ -18,14 +18,33 @@
         <label for=""></label>
         <input type="text" id="documento" placeholder="Ingrese su numero de Documento">
         <label for=""></label>
-        <select class="combo">
+        <select class="combo" id="tipo">
             <option value="value1">Seleccionar</option>
         </select>
         <input type="email" id="correo" placeholder="Ingrese su correo">
         <label for=""></label>
         <input type="text" id="direccion" placeholder="Ingrese su direccion">
-        <button class="boton"><a href="">Registrar</a></button>
+        <button class="boton" type="submit">Registrar</button>
     </form>
+
+    <h1>Listar</h1>
+    <table id="table_usuarios">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Núm Documento</th>
+                <th>Tipo Documento</th>
+                <th>Correo</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
     <script src="app.js"></script>
 </body>
 </html>

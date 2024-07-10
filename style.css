@@ -45,7 +45,7 @@ select{
     border-radius: var(--borde);
     border: 2px solid pink;
 }
-button{
+.boton{
     margin: 30px;
     padding: var(--padding);
     width: var(--width);
@@ -53,4 +53,28 @@ button{
     border: none;
     border-radius: var(--borde);
     font-size: 16px;
+    cursor: pointer;
+}
+table{
+    margin: 0 auto;
+    border: 1px solid red;
+}
+th{
+    padding: 30px 30px ;
+    border: 1px solid pink ;
+}
+td{
+    padding: 20px 20px ;
+    border: 1px solid pink;
+}
+.boton_eliminar{
+    margin: 30px;
+    padding: var(--padding);
+    width: 100px;
+    background-color: red;
+    border: none;
+    border-radius: var(--borde);
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
 }
