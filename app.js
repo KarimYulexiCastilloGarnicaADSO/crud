@@ -22,22 +22,84 @@ const doc = document.querySelector('#documento')
 const correo = document.querySelector('#correo')
 const direccion = document.querySelector('#direccion')
 const tipo = document.querySelector('#tipo')
+const telefono = document.querySelector('#telefono')
 
 /**
- * Valida los campos
- */
-function validar() {
-    id.setAttribute("onkeypress", "return ((event.charCode >= 48 && event.charCode <= 57))")
-    nombre.setAttribute("onkeypress", "return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))")
-    apellido.setAttribute("onkeypress", "return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122))")
-    doc.setAttribute("onkeypress", "return ((event.charCode >= 48 && event.charCode <= 57 && this.value.length < 10))")
-    correo.setAttribute("onkeypress", "return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 64 || event.charCode == 46))")
-}
+ * Valida los campos*/
 
-id.addEventListener('keydown', validar)
-nombre.addEventListener('keydown',validar)
-apellido.addEventListener('keydown', validar)
-doc.addEventListener('keydown', validar)
+const letras = (event) =>{
+    console.log(event)
+    let regex = /^[A-Za-zAà-ÿ\s]+$/
+    if (!regex.test(event.key)) {
+        event.preventDefault()
+        nombre.classList.remove("correcto")
+        nombre.classList.add("error")
+
+    }
+    else{
+        nombre.classList.add("correcto")
+        nombre.classList.remove("error")
+    }
+}
+nombre.addEventListener("keypress", (event) => {
+    letras(event, nombre)
+})
+apellido.addEventListener("keypress", (event) => {
+    letras(event, apellido)
+})
+
+
+
+const solo_numeros = (event) => {
+    if (event.keyCode < 48 || event.keyCode > 57) {
+        event.preventDefault()
+    }
+} 
+
+
+
+const numeros = (event, elemento) => {
+    let valor = elemento.value.length === 10; 
+    console.log(valor, elemento.value.length) 
+    if(valor){ 
+        event.preventDefault()
+        telefono.classList.remove("correcto")
+        telefono.classList.add("error")
+        doc.classList.remove("correcto")
+        doc.classList.add("error")
+    }
+    else{
+        telefono.classList.add("correcto")
+        telefono.classList.remove("error")
+        doc.classList.add("correcto")
+        doc.classList.remove("error")
+    }
+}
+telefono.addEventListener("keypress", (event) => {
+    numeros(event, telefono)
+})
+doc.addEventListener("keypress", (event) => {
+    numeros(event,doc)
+})
+
+
+const email = (event,elemento) => {
+    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (regex.test(elemento.value)) {
+        event.preventDefault()
+        correo.classList.add("correcto")
+        correo.classList.remove("error")
+    }
+    else{
+        correo.classList.add("error")
+        correo.classList.remove("correcto")
+    }
+}
+correo.addEventListener("blur", (event) => {
+    email(event, correo)
+})
+
+
 
 /**
  * Captura los inputs para colocarles los datos
@@ -47,6 +109,7 @@ const capturar = (event) =>{
     const datos = {
         nombre: nombre.value,
         apellido: apellido.value,
+        telefono: telefono.value,
         documento: doc.value,
         correo: correo.value,
         direccion: direccion.value,
