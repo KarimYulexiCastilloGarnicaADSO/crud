@@ -41,11 +41,25 @@ const letras = (event) =>{
         nombre.classList.remove("error")
     }
 }
+const letras2 = (event) =>{
+    console.log(event)
+    let regex = /^[A-Za-zAà-ÿ\s]+$/
+    if (!regex.test(event.key)) {
+        event.preventDefault()
+        apellido.classList.remove("correcto")
+        apellido.classList.add("error")
+
+    }
+    else{
+        apellido.classList.add("correcto")
+        apellido.classList.remove("error")
+    }
+}
 nombre.addEventListener("keypress", (event) => {
     letras(event, nombre)
 })
 apellido.addEventListener("keypress", (event) => {
-    letras(event, apellido)
+    letras2(event, apellido)
 })
 
 
@@ -57,27 +71,31 @@ const solo_numeros = (event) => {
 } 
 
 
-
 const numeros = (event, elemento) => {
     let valor = elemento.value.length === 10; 
     console.log(valor, elemento.value.length) 
     if(valor){ 
         event.preventDefault()
-        telefono.classList.remove("correcto")
-        telefono.classList.add("error")
-        doc.classList.remove("correcto")
-        doc.classList.add("error")
+        elemento.classList.add("correcto")
+        elemento.classList.remove("error")
+        // doc.classList.remove("correcto")
+        // doc.classList.add("error")
     }
     else{
-        telefono.classList.add("correcto")
-        telefono.classList.remove("error")
-        doc.classList.add("correcto")
-        doc.classList.remove("error")
+        elemento.classList.remove("correcto")
+        elemento.classList.add("error")
+        // doc.classList.add("correcto")
+        // doc.classList.remove("error")
     }
 }
+
+
 telefono.addEventListener("keypress", (event) => {
-    numeros(event, telefono)
+    solo_numeros(event, telefono)
 })
+// telefono.add("input", (event) => {
+//     numeros(event, telefono)
+// })
 doc.addEventListener("keypress", (event) => {
     numeros(event,doc)
 })
