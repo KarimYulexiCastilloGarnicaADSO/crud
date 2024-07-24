@@ -1,3 +1,9 @@
+import letras from "./nombre.js";
+// import letras2 from "./apellido.js";
+import numeros from "./telefono.js";
+// import numeros2 from "./documento.js";
+import email from "./correo.js";
+
 async function consultar() {
     const data = await fetch("http://127.0.0.1:3000/docs")
     const tpos = await data.json()
@@ -25,100 +31,61 @@ const tipo = document.querySelector('#tipo')
 const telefono = document.querySelector('#telefono')
 
 /**
- * Valida los campos*/
+ * Valida los campos
+*/
 
-const letras = (event) =>{
-    console.log(event)
-    let regex = /^[A-Za-zAà-ÿ\s]+$/
-    if (!regex.test(event.key)) {
-        event.preventDefault()
-        nombre.classList.remove("correcto")
-        nombre.classList.add("error")
-
-    }
-    else{
-        nombre.classList.add("correcto")
-        nombre.classList.remove("error")
-    }
-}
-const letras2 = (event) =>{
-    console.log(event)
-    let regex = /^[A-Za-zAà-ÿ\s]+$/
-    if (!regex.test(event.key)) {
-        event.preventDefault()
-        apellido.classList.remove("correcto")
-        apellido.classList.add("error")
-
-    }
-    else{
-        apellido.classList.add("correcto")
-        apellido.classList.remove("error")
-    }
-}
-nombre.addEventListener("keypress", (event) => {
+// nombre.addEventListener("keypress", (event) => {
+//     letras(event, nombre)
+// })
+nombre.addEventListener("blur", (event) => {
     letras(event, nombre)
 })
-apellido.addEventListener("keypress", (event) => {
-    letras2(event, apellido)
-})
-
-
-
-const solo_numeros = (event) => {
-    if (event.keyCode < 48 || event.keyCode > 57) {
-        event.preventDefault()
-    }
-} 
-
-
-const numeros = (event, elemento) => {
-    let valor = elemento.value.length === 10; 
-    console.log(valor, elemento.value.length) 
-    if(valor){ 
-        event.preventDefault()
-        elemento.classList.add("correcto")
-        elemento.classList.remove("error")
-        // doc.classList.remove("correcto")
-        // doc.classList.add("error")
-    }
-    else{
-        elemento.classList.remove("correcto")
-        elemento.classList.add("error")
-        // doc.classList.add("correcto")
-        // doc.classList.remove("error")
-    }
-}
-
-
-telefono.addEventListener("keypress", (event) => {
-    solo_numeros(event, telefono)
-})
-// telefono.add("input", (event) => {
-//     numeros(event, telefono)
+// apellido.addEventListener("keypress", (event) => {
+//     letras(event, apellido)
 // })
+apellido.addEventListener("blur", (event) => {
+    letras(event, apellido)
+})
+telefono.addEventListener("keypress", (event) => {
+    numeros(event, telefono)
+})
+telefono.addEventListener("blur", (event) => {
+    numeros(event, telefono)
+})
 doc.addEventListener("keypress", (event) => {
     numeros(event,doc)
 })
-
-
-const email = (event,elemento) => {
-    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (regex.test(elemento.value)) {
-        event.preventDefault()
-        correo.classList.add("correcto")
-        correo.classList.remove("error")
-    }
-    else{
-        correo.classList.add("error")
-        correo.classList.remove("correcto")
-    }
-}
+doc.addEventListener("blur", (event) => {
+    numeros(event,doc)
+})
+// correo.addEventListener("keypress", (event) => {
+//     email(event, correo)
+// })
 correo.addEventListener("blur", (event) => {
     email(event, correo)
 })
 
+const crr =  (event, elemento) => {
 
+    if (elemento.value === "") {
+        direccion.classList.remove("correcto")
+        direccion.classList.add("error")
+    }else{
+        if(!regex.test(event.key)) {
+            event.preventDefault()
+            direccion.classList.remove("correcto")
+            direccion.classList.add("error")
+        }
+        else{
+            direccion.classList.add("correcto")
+            direccion.classList.remove("error")
+        }
+    }
+}
 
+direccion.addEventListener("blur", (event) => {
+    crr(event, direccion)
+})
 /**
  * Captura los inputs para colocarles los datos
  */
