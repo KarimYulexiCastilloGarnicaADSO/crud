@@ -1,8 +1,7 @@
 import letras from "./nombre.js";
-// import letras2 from "./apellido.js";
 import numeros from "./telefono.js";
-// import numeros2 from "./documento.js";
 import email from "./correo.js";
+import valid from "./validar.js";
 
 async function consultar() {
     const data = await fetch("http://127.0.0.1:3000/docs")
@@ -29,20 +28,21 @@ const correo = document.querySelector('#correo')
 const direccion = document.querySelector('#direccion')
 const tipo = document.querySelector('#tipo')
 const telefono = document.querySelector('#telefono')
-
+const busqueda = document.querySelectorAll('#fo [required]')
+console.log(busqueda)
 /**
  * Valida los campos
 */
 
-// nombre.addEventListener("keypress", (event) => {
-//     letras(event, nombre)
-// })
+nombre.addEventListener("keypress", (event) => {
+    letras(event, nombre)
+})
 nombre.addEventListener("blur", (event) => {
     letras(event, nombre)
 })
-// apellido.addEventListener("keypress", (event) => {
-//     letras(event, apellido)
-// })
+apellido.addEventListener("keypress", (event) => {
+    letras(event, apellido)
+})
 apellido.addEventListener("blur", (event) => {
     letras(event, apellido)
 })
@@ -58,11 +58,14 @@ doc.addEventListener("keypress", (event) => {
 doc.addEventListener("blur", (event) => {
     numeros(event,doc)
 })
-// correo.addEventListener("keypress", (event) => {
-//     email(event, correo)
-// })
+correo.addEventListener("keypress", (event) => {
+    email(event, correo)
+})
 correo.addEventListener("blur", (event) => {
     email(event, correo)
+})
+direccion.addEventListener("blur", (event) => {
+    crr(event, direccion)
 })
 
 const crr =  (event, elemento) => {
@@ -71,7 +74,7 @@ const crr =  (event, elemento) => {
         direccion.classList.remove("correcto")
         direccion.classList.add("error")
     }else{
-        if(!regex.test(event.key)) {
+        if(event.key) {
             event.preventDefault()
             direccion.classList.remove("correcto")
             direccion.classList.add("error")
@@ -83,25 +86,37 @@ const crr =  (event, elemento) => {
     }
 }
 
-direccion.addEventListener("blur", (event) => {
-    crr(event, direccion)
+$form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let validar = valid(event, '#fo [required]')
+    // alert(validar)
+    if (validar) {
+        console.log(nombre.value);
+        const datos = {
+            nombre: nombre.value,
+            apellido: apellido.value,
+            telefono: telefono.value,
+            documento: doc.value,
+            correo: correo.value,
+            direccion: direccion.value,
+            tipo: tipo.value
+        }
+        console.log(datos)
+        // enviar(datos)
+        alert("bien")
+    }
+    else{
+        alert("mal")
+    }
 })
-/**
+
+/**s
  * Captura los inputs para colocarles los datos
  */
-const capturar = (event) =>{
-    event.preventDefault()
-    const datos = {
-        nombre: nombre.value,
-        apellido: apellido.value,
-        telefono: telefono.value,
-        documento: doc.value,
-        correo: correo.value,
-        direccion: direccion.value,
-        tipo: tipo.value
-    }
-    enviar(datos)
-}
+// const capturar = (event) =>{
+//     event.preventDefault()
+    
+// }
 
 /**
  * Envia los datos 
@@ -118,7 +133,7 @@ async function enviar(datos) {
         .then((json) => console.log(json));
 }
 
-$form.addEventListener("submit" , capturar)
+// $form.addEventListener("submit" , capturar)
 
 
 /**
