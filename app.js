@@ -29,7 +29,7 @@ const direccion = document.querySelector('#direccion')
 const tipo = document.querySelector('#tipo')
 const telefono = document.querySelector('#telefono')
 const busqueda = document.querySelectorAll('#fo [required]')
-console.log(busqueda)
+// console.log(busqueda)
 /**
  * Valida los campos
 */
@@ -101,8 +101,8 @@ $form.addEventListener("submit", (event) => {
             direccion: direccion.value,
             tipo: tipo.value
         }
-        console.log(datos)
-        // enviar(datos)
+        // console.log(datos)
+        enviar(datos)
         alert("bien")
     }
     else{
@@ -130,7 +130,15 @@ async function enviar(datos) {
         },
       })
         .then((response) => response.json())
-        .then((json) => console.log(json));
+        .then((json) => {
+            nombre.value = "";
+            apellido.value = "";
+            telefono.value = "";
+            doc.value = "";
+            $slect.value = "";
+            correo.value = "";
+            direccion.value = "";
+        });
 }
 
 // $form.addEventListener("submit" , capturar)
