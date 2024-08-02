@@ -2,16 +2,18 @@ import letras from "./nombre.js";
 import numeros from "./telefono.js";
 import email from "./correo.js";
 import valid from "./validar.js";
+import listar from "./select.js";
 
 async function consultar() {
-    const data = await fetch("http://127.0.0.1:3000/docs")
-    const tpos = await data.json()
-
-    tpos.forEach(element => {
-        let option = document.createElement('option')
-        $slect.appendChild(option)
-        option.innerText = element.nombre
-    });
+    listar()
+    .then(data => {
+        data.forEach(r => {
+            // console.log(r.nombre)
+            let option = document.createElement('option')
+            $slect.appendChild(option)
+            option.innerText = r.nombre
+        })
+    })
 }
 consultar()
 
